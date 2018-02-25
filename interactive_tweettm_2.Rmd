@@ -1,5 +1,5 @@
 ---
-title: "Untitled"
+title: "G-inspectoR"
 author: "Solon Ioannou"
 date: "February 25, 2018"
 output: flexdashboard::flex_dashboard
@@ -14,6 +14,8 @@ library(RCurl)
 library(tm)
 library(wordcloud)
 library(dplyr)
+library(rmarkdown)
+library(knitr)
 
 api_key = "DUunV9m55WIUTAYZmfMLoaoEU"
 api_secret = "YkQyHH4uXIOJnnNB1XgCkj30fCtt7TPKaywu4ljEN99lHsXGVs"
@@ -53,6 +55,22 @@ Sidebar {.sidebar}
 #),
 ```
 
+HOME
+====================================================
+
+Welcome to the   
+
+G-inspectoR  
+
+Please select from the sidebar:  
+
+1) Keyword  
+
+2) Number of latest feeds to show  
+
+3) Language Please!
+
+
 Dashboard
 ====================================================
 
@@ -89,7 +107,7 @@ Column {data-width=650}
         tw.text <- unlist(strsplit(tw.text,' '))
         word <- sort(table(tw.text),TRUE)
         #wordc <- head(word,n=15)
-        wordcloud(names(word),word,random.color=FALSE, colors=rainbow(10), max.words = 100, scale=c(7,2),min.freq=1)
+        wordcloud(names(word),word, random.order = FALSE, random.color=FALSE, colors=rainbow(10), max.words = 100, scale=c(7,2),min.freq=1)
         #wordcloud(wordc, random.order = FALSE, max.words = 100, scale = c(5, 0.5))
         }
     )
@@ -122,9 +140,9 @@ renderBubbles({
         word <- sort(table(tw.text),TRUE)
   
   df <- rawData() %>%
-    sapply(london, function(x) x$getText())  %>%
+    sapply(function(x) x$getText())  %>%
       Corpus(VectorSource())%>%
-    tm_map(london_corpus, removePunctuation) %>%
+    tm_map(removePunctuation) %>%
 tm_map(removeWords, stopwords("english")) %>%
 tm_map(removeNumbers) %>%
 tm_map(stripWhitespace) %>%
@@ -142,6 +160,63 @@ tm_map(content_transformer(tolower)) %>%
 })
 ```
 
+Simulation
+====================================================
 
+```{r include=FALSE}
+set.seed(1000)
+#data <- as.data.frame(data)
+#init.data <- setNames(data.frame(matrix(ncol = 4, nrow = 0)), c("ParticipantID" ,"Opinion", "Date", "Area"))
+#init.data$ParticipantID <- seq(1:5000)
+
+op_vec <- c("Side Walks", "Noise Pollution", "Soil Pollution", "Air Pollution", "Garbage", "Parking places", "Public transport", "Bicycle roads", "Healthcare centers", "Economy", "Unemployment", "Employment", "Transparency", "Justice", "Schools", "Physical activity", "Health", "Youth centers", "Elderly Centers", "Libraries", "Community centers", "Road lighting")
+
+street_vec <- c("Agias Elenis", "Eugenias kai Antoniou Theodotou Leoforos", "Konstantinou Spyridaki Plateia", "Alkaiou", "Hlektras", "Medontos", "Antrokleous", "Iras", "Mpoumpoulinas", "Annis Komninis", "Theokritou", "Pindarou", "Arnaldas", "Thoukididou", "Stasandrou", "Afroditis", "Kritis", "Stasinou Leoforos" )
+
+data <- data.frame(ParticipantID = seq(1:5000),
+                   Opinion = as.character(sample(op_vec, size = 5000, replace = TRUE, prob = c(0.25, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.4, 0.3, 0.5, 0.2, 0.1, 0.2, 0.4, 0.2, 0.1, 0.4, 0.5, 0.7, 0.3, 0.4))),
+                  Street = as.character(sample(street_vec, size = 5000, replace = TRUE)))
+#summary(data)
+```
+
+Row {data-width=650}
+-----------------------------------------------------------------------
+
+### Municipal Council repository
+
+```{r}
+df <- data %>%
+    group_by(Opinion) %>%
+    tally() %>%
+    arrange(desc(n), tolower(Opinion)) #%>%
+#    # Just show the top 60, otherwise it gets hard to see
+#    head(60)
+
+
+ bubbles(df$n, df$Opinion)
+```
+
+Sentiment Analysis 
+======================================================
+
+
+```{r}
+
+
+#<img src="C:/Users/Hp/Desktop/t5" width="400" height="300" alt="This is alternate text">
+  
+  renderImage({
+    # When input$n is 3, filename is ./images/image3.jpeg
+    filename <- normalizePath(file.path('C:/Users/Hp/Desktop/t5',
+                              paste('image', input$n, '.peg', sep='')))
+ 
+    # Return a list containing the filename and alt text
+    list(src = filename,
+         alt = paste("Image number", input$n))
+  })
+
+```
+
+!["Results of sentiment analysis"](C:/Users/Hp/Desktop/t5.png)
 
 
