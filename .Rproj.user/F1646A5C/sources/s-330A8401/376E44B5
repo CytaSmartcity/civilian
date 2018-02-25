@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1519551553073.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "376E44B5",
+    "lastKnownWriteTime" : 1507156924,
+    "last_content_update" : 1507156924,
+    "path" : "C:/Users/Hp/Desktop/S/R_projects/CityAnalytics/tweetAnalytics/app.R",
+    "project_path" : "tweetAnalytics/app.R",
+    "properties" : {
+        "cursorPosition" : "9,14",
+        "scrollLine" : "8"
+    },
+    "relative_order" : 15,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

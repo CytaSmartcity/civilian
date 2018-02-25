@@ -1,0 +1,56 @@
+---
+title: "Untitled"
+author: "Solon Ioannou"
+date: "February 24, 2018"
+output: html_document
+---
+
+```{r}
+library(bubbles)
+```
+
+
+```{r}
+set.seed(1000)
+#data <- as.data.frame(data)
+init.data <- setNames(data.frame(matrix(ncol = 4, nrow = 0)), c("ParticipantID" ,"Opinion", "Date", "Area"))
+init.data$ParticipantID <- seq(1:5000)
+
+
+#op_vec <- c("Πεζοδρόμια", "Ηχορύπανση", "Αποπνηκτική ατμόσφαιρα", "Σκουπίδια", "Χώροι στάθμευσης", "Κέντρα Υγείας", "Σκόνη", "Οικονομία", "Ανεργεία", "Θέσεις εργασίας", "Διαφάνεια", "Δικαιοσύνη", "Σχολεία", "Αθλοπαιδειές", "Κέντρα νέων")
+
+op_vec <- c("Side Walks", "Noise Pollution", "Soil Pollution", "Air Pollution", "Garbage", "Parking places", "Public transport", "Bicycle roads", "Healthcare centers", "Economy", "Unemployment", "Employment", "Transparency", "Justice", "Schools", "Physical activity", "Health", "Youth centers", "Elderly Centers", "Libraries", "Community centers", "Road lighting")
+#street_vec <- c("Αγίας Ελένης", "Ευγενίας και Αντωνίου Θεοδότου Λεωφόρος", "Κωνσταντίνου Σπυριδάκη Πλατεία", "Αλκαίου", "Ηλέκτρας", "Μέδοντος", "Ανδροκλέους", "Ήρας", "Μπουμπουλίνας", "Άννης Κομνηνής", "Θεοκρίτου", "Πινδάρου", "Αρνάλδας", "Θουκυδίδου", "Στασάνδρου", "Αφροδίτης", "Κρήτης", "Στασίνου Λεωφόρος")
+
+street_vec <- c("Agias Elenis", "Eugenias kai Antoniou Theodotou Leoforos", "Konstantinou Spyridaki Plateia", "Alkaiou", "Hlektras", "Medontos", "Antrokleous", "Iras", "Mpoumpoulinas", "Annis Komninis", "Theokritou", "Pindarou", "Arnaldas", "Thoukididou", "Stasandrou", "Afroditis", "Kritis", "Stasinou Leoforos" )
+
+data <- data.frame(ParticipantID = seq(1:5000),
+                   Opinion = as.character(sample(op_vec, size = 5000, replace = TRUE, prob = c(0.25, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.4, 0.3, 0.5, 0.2, 0.1, 0.2, 0.4, 0.2, 0.1, 0.4, 0.5, 0.7, 0.3, 0.4))),
+                  Street = as.character(sample(street_vec, size = 5000, replace = TRUE)))
+
+```
+
+```{r}
+summary(data)
+```
+
+```{r}
+#Reactive code
+#df <- pkgData() %>%
+#    group_by(package) %>%
+#    tally() %>%
+#    arrange(desc(n), tolower(package)) %>%
+#    # Just show the top 60, otherwise it gets hard to see
+#    head(60)
+
+df <- data %>%
+    group_by(Opinion) %>%
+    tally() %>%
+    arrange(desc(n), tolower(Opinion)) #%>%
+#    # Just show the top 60, otherwise it gets hard to see
+#    head(60)
+
+
+ bubbles(df$n, df$Opinion)
+```
+

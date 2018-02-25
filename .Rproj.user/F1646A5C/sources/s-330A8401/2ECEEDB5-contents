@@ -1,0 +1,90 @@
+---
+title: "testtwittertest"
+author: "Solon Ioannou"
+date: "February 24, 2018"
+output: html_document
+---
+
+```{r}
+library(rtweet)
+#devtools::install_github("jcheng5/bubbles")
+library(bubbles)
+```
+
+```{r}
+## whatever name you assigned to your created app
+appname <- "FeedAnalyticsDemos2"
+
+## api key (example below is not a real key)
+key <- "Ju9oAxbTCPwl0RzeIwwZLuhAe"
+
+## api secret (example below is not a real key)
+secret <- "AYoWvyrpT0nNe3FxZUHrvjgpAOaxGYNdNJ9BaAgdJubCbCk0Fz"
+
+## create token named "twitter_token"
+twitter_token <- create_token(
+  app = appname,
+  consumer_key = key,
+  consumer_secret = secret)
+```
+
+```{r}
+## Stream keywords used to filter tweets
+q <- c("nicosiamunicipality", "nicosia", "Nicosia", "#nicosia", "#Nicosia", "Cyprus", "#Cyprus")
+
+## Stream time in seconds so for one minute set timeout = 60
+## For larger chunks of time, I recommend multiplying 60 by the number
+## of desired minutes. This method scales up to hours as well
+## (x * 60 = x mins, x * 60 * 60 = x hours)
+## Stream for 30 minutes
+streamtime <- 3 * 60
+
+## Filename to save json data (backup)
+filename <- "rtelect.json"
+```
+
+```{r}
+## Stream election tweets
+rt <- stream_tweets(q = q, timeout = streamtime, file_name = filename)
+```
+
+```{r}
+
+```
+
+
+```{r}
+#Not working
+sf <- get_trends("#Nicosia")
+sf
+```
+
+```{r}
+## stream tweets from london for 60 seconds
+rt <- stream_tweets(lookup_coords("nicosia, cyprus"), timeout = 60)
+```
+
+
+
+
+```{r}
+
+```
+
+
+```{r}
+## search for 5000 tweets using the rstats hashtag
+rt <- search_tweets(
+  "#banania", n = 18000, include_rts = FALSE
+)
+
+## preview tweets data
+rt
+
+## preview users data
+users_data(rt)
+
+## plot time series (if ggplot2 is installed)
+ts_plot(rt)
+```
+

@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1519541746065.000,
+    "dirty" : true,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "E9774822",
+    "lastKnownWriteTime" : 1519552544,
+    "last_content_update" : 1519553465037,
+    "path" : "C:/Users/Hp/Desktop/S/R_projects/CityAnalytics/interactive_tweettm.Rmd",
+    "project_path" : "interactive_tweettm.Rmd",
+    "properties" : {
+        "cursorPosition" : "89,0",
+        "scrollLine" : "24",
+        "tempName" : "Untitled7"
+    },
+    "relative_order" : 11,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

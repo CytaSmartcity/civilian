@@ -1,0 +1,146 @@
+---
+title: "Untitled"
+author: "Solon Ioannou"
+date: "February 25, 2018"
+output: flexdashboard::flex_dashboard
+runtime: shiny
+---
+
+
+```{r setup, include=FALSE}
+library(twitteR)
+library(bubbles)
+library(RCurl)
+library(tm)
+library(wordcloud)
+library(dplyr)
+
+api_key = "DUunV9m55WIUTAYZmfMLoaoEU"
+api_secret = "YkQyHH4uXIOJnnNB1XgCkj30fCtt7TPKaywu4ljEN99lHsXGVs"
+access_token = "910822811429634048-lLg87KjfIzBomHSThdYr2zMIAw0Io1F"
+access_token_secret = "qqCEnVu7YzBUQu2Hwr9LJfHn6sXVRgkbk5xQdylMPemY4"
+soauth <- setup_twitter_oauth(api_key,api_secret,access_token,access_token_secret)
+
+
+```
+
+
+Sidebar {.sidebar}
+==========================================================
+
+```{r eruptions, echo=FALSE}
+#shinyUI(pageWithSidebar(
+#shinyApp(
+#  ui = fluidPage(
+  # Application title
+
+  #headerPanel('Tweets hunter'),
+  #sidebarPanel(
+    textInput('term', 'Enter a term', '')
+
+    numericInput('cant', 'Select a number of tweets',1,0,5000)
+
+    radioButtons('lang','Select the language',c(
+                  'English'='en',
+                  'Castellano'='es',
+                  'Deutsch'='de'))
+                
+  #              submitButton(text='Run')),
+#  mainPanel(
+#    h4('Most recent Tweets'),
+#    tableOutput('table'),
+#    plotOutput('wordcl'))
+#),
+```
+
+Dashboard
+====================================================
+
+```{r include=FALSE}
+#server = function (input, output) {
+    rawData <- reactive(
+      { tweets <- searchTwitter(input$term, n=input$cant,lang=input$lang)
+      
+      return(return(twListToDF(tweets)))
+      })
+    
+#    output$tablel <- renderTable( {
+#      rawData()
+#    })
+```
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Chart A
+
+```{r echo=FALSE}
+ renderPlot(
+      {
+        
+        tw.text <- rawData()$text
+        tw.text <- enc2native(rawData()$text)
+        tw.text <- tolower(tw.text)
+        tw.text <- removeWords(tw.text,c(stopwords('en'),'rt'))
+        tw.text <- removeWords(tw.text, input$term)
+        tw.text <- removeNumbers(tw.text)
+        tw.text <- removePunctuation(tw.text)
+        tw.text <- stripWhitespace(tw.text)
+        tw.text <- unlist(strsplit(tw.text,' '))
+        word <- sort(table(tw.text),TRUE)
+        #wordc <- head(word,n=15)
+        wordcloud(names(word),word,random.color=FALSE, colors=rainbow(10), max.words = 100, scale=c(7,2),min.freq=1)
+        #wordcloud(wordc, random.order = FALSE, max.words = 100, scale = c(5, 0.5))
+        }
+    )
+
+```
+
+Dashboard 2
+====================================================
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Chart A
+
+```{r}
+renderBubbles({
+ # if (nrow(pkgData()) == 0)
+#    return()
+
+#  order <- unique(pkgData()$package)
+  tw.text <- rawData()$text
+        tw.text <- enc2native(rawData()$text)
+        tw.text <- tolower(tw.text)
+        tw.text <- removeWords(tw.text,c(stopwords('en'),'rt'))
+        tw.text <- removeWords(tw.text, input$term)
+        tw.text <- removeNumbers(tw.text)
+        tw.text <- removePunctuation(tw.text)
+        tw.text <- stripWhitespace(tw.text)
+        tw.text <- unlist(strsplit(tw.text,' '))
+        word <- sort(table(tw.text),TRUE)
+  
+  df <- rawData() %>%
+    sapply(london, function(x) x$getText())  %>%
+      Corpus(VectorSource())%>%
+    tm_map(london_corpus, removePunctuation) %>%
+tm_map(removeWords, stopwords("english")) %>%
+tm_map(removeNumbers) %>%
+tm_map(stripWhitespace) %>%
+tm_map(content_transformer(tolower)) %>%
+    tm_map(removeWords, c(input$term)) %>%
+    group_by(content) %>%
+    tally() %>%
+    arrange(desc(n), tolower(content)) %>%
+#    # Just show the top 60, otherwise it gets hard to see
+    head(60)
+
+        
+  bubbles(df$n, df$content)
+})
+```
+
+
+
+

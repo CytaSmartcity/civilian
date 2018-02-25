@@ -1,0 +1,15 @@
+"0","## Stream election tweets
+rt <- stream_tweets(q = q, timeout = streamtime, file_name = filename)
+"
+"2","Streaming tweets for 180 seconds...
+"
+"1","  |                                                                                                            "
+"1","  |                                                                                                      |   0%"
+"1","  |                                                                                                            "
+"1","  |======================================================================================================| 100%"
+"1","
+"
+"2","Finished streaming tweets!
+"
+"2","streaming data saved as rtelect.json
+"

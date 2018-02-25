@@ -1,0 +1,6 @@
+"0","#search post"
+"0","posts <- searchFacebook( string=""facebook"", token=fb_oauth, n=20000 )"
+"2","Error in searchFacebook(string = ""facebook"", token = fb_oauth, n = 20000) : 
+  Searching for posts was deprecated with version 2.0 of the Facebook Graph API.
+For more details see ?searchFacebook
+"

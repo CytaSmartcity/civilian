@@ -1,0 +1,7 @@
+"0","data <- data.frame(ParticipantID = seq(1:5000),
+                   Opinion = as.character(sample(op_vec, size = 5000, replace = TRUE, prob = c(0.25, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.4, 0.3, 0.5, 0.2, 0.1, 0.2, 0.4, 0.2, 0.1, 0.4, 0.5, 0.7, 0.3, 0.4))),
+                  Street = as.character(sample(street_vec, size = 5000, replace = TRUE)))
+"
+"2","Error in sample.int(length(x), size, replace, prob) : 
+  incorrect number of probabilities
+"

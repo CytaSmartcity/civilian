@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1519481228277.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "70B869B3",
+    "lastKnownWriteTime" : 1519550775,
+    "last_content_update" : 1519550775200,
+    "path" : "C:/Users/Hp/Desktop/S/R_projects/CityAnalytics/server.R",
+    "project_path" : "server.R",
+    "properties" : {
+        "cursorPosition" : "60,0",
+        "scrollLine" : "41",
+        "tempName" : "Untitled3"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

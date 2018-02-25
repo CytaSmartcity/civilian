@@ -1,0 +1,68 @@
+---
+title: "politicalscience"
+author: "Solon Ioannou"
+date: "February 24, 2018"
+output: html_document
+---
+
+```{r}
+library(streamR)
+library(ROAuth)
+```
+
+```{r}
+
+# The following four lines assign the right values to the variables that
+# are needed for the API call.
+requestURL <- "https://api.twitter.com/oauth/request_token"
+accessURL <- "https://api.twitter.com/oauth/access_token"
+authURL <- "https://api.twitter.com/oauth/authorize"
+# The string within the quotation marks has to be replaced with the actual
+# consumerKey and consumerSecret.
+consumerKey <- "r1RQw5HbWdZwY5oPWUB9WiEV8"
+consumerSecret <- "FJ8InKGYEoTrzRYeXsmp95MMnMYdWVoaw1kpqt1ugWyfHSC5xG"
+# The next two lines establish a connection to the Twitter API.
+# The system will print a URL which should be copied in a browser to receive a PIN number.
+# This PIN has to be entered in the R-console.
+my_oauth <- OAuthFactory$new(consumerKey = consumerKey, 
+consumerSecret = consumerSecret, 
+requestURL = requestURL, 
+accessURL = accessURL, 
+authURL = authURL)
+my_oauth$handshake(cainfo = system.file("CurlSSL", "cacert.pem", package = "RCurl"))
+# Once the connection is established we can save it so that we do not have
+# repeat this process.
+save(my_oauth, file = "my_oauth.Rdata")
+```
+
+```{r}
+load("my_oauth.Rdata")
+```
+
+```{r}
+file = "tweets.json"
+track = c("Nicosia", "nicosia", "NicosiaMunicipality", "nicosiamunicipality", "#Nicosia")
+follow = NULL
+loc = c(35.166667, 33.366667)
+lang = c("en", "gre")
+minutes = 0.5
+time = 60*minutes
+tweets = NULL
+filterStream(file.name = file, 
+             track = track,
+             follow = follow, 
+             locations = loc, 
+             language = lang,
+             timeout = time, 
+             tweets = tweets, 
+             oauth = my_oauth,
+             verbose = TRUE)
+```
+
+```{r}
+tweets.df <- parseTweets(file)
+# Now we can inspect the table and save it.
+#View(tweets.df)
+save(file="tweetsDF.RDATA", tweets.df)
+```
+

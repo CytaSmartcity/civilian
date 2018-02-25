@@ -1,0 +1,73 @@
+---
+title: "testtwitter"
+author: "Solon Ioannou"
+date: "February 24, 2018"
+output: html_document
+---
+```{r}
+#library(openNLP)
+library(twitteR)
+library(shiny)
+library(RCurl)
+library(tm)
+library(wordcloud)
+
+```
+
+```{r}
+api_key = "DUunV9m55WIUTAYZmfMLoaoEU"
+api_secret = "YkQyHH4uXIOJnnNB1XgCkj30fCtt7TPKaywu4ljEN99lHsXGVs"
+access_token = "910822811429634048-lLg87KjfIzBomHSThdYr2zMIAw0Io1F"
+access_token_secret = "qqCEnVu7YzBUQu2Hwr9LJfHn6sXVRgkbk5xQdylMPemY4"
+soauth <- setup_twitter_oauth(api_key,api_secret,access_token,access_token_secret)
+```
+
+
+
+```{r}
+# Replace the user and password below
+#sess <- initSession(‘SolonasIoan’,’solon5678’)
+ london <- searchTwitter('london', lang = "en", n = 500, resultType = "recent")
+#Extract message
+london_txt <- sapply(london, function(x) x$getText())
+str(london_txt)
+#convert to corpus
+london_corpus <- Corpus(VectorSource(london_txt))
+london_corpus
+#Checking the first message
+inspect(london_corpus[1])
+#Data cleaning
+london_clean <- tm_map(london_corpus, removePunctuation)
+london_clean <- tm_map(london_clean, removeWords, stopwords("english"))
+london_clean <- tm_map(london_clean, removeNumbers)
+london_clean <- tm_map(london_clean, stripWhitespace)
+london_clean <- tm_map(london_clean, content_transformer(tolower))
+
+#some extra cleaning
+london_clean <- tm_map(london_clean, removeWords, c("london"))
+
+#graphical rep
+wordcloud(london_clean, random.order = FALSE, max.words = 100, scale = c(5, 0.5))
+```
+
+```{r}
+# Cycle through the list and get the text from the tweets for analysis
+names(sea)=c(‘tweet’)
+textdata=vector()
+for (i in 1:length(sea)) {textdata=append(textdata,tokenize(text(sea[[i]])))}
+
+
+# limit to entries that include alpha characters
+textdata=factor(textdata)
+textdata=textdata[grep(“[a-zA-Z]”,textdata)]
+
+
+# Only include tokens that appear more than three times
+s=summary(textdata)
+subset=s[s>3]
+
+
+# Set the chart options so that we can see the y axis
+par(las=2,cex=.9,mar=c(11, 2, 4, 2) + 0.1)
+barplot(subset,names=names(subset))
+```

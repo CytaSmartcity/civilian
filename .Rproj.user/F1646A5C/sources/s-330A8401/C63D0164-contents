@@ -1,0 +1,42 @@
+---
+title: "Untitled"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(shiny)
+#library(shinySignals)
+library(dplyr)
+library(bubbles)
+```
+
+Row {data-width=650}
+-----------------------------------------------------------------------
+
+### Comments {.value-box}
+
+### Chart A
+
+```{r}
+
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Chart B
+
+```{r}
+
+```
+
+### Chart C
+
+```{r}
+
+```
+

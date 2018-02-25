@@ -1,0 +1,17 @@
+"0","## whatever name you assigned to your created app"
+"0","appname <- ""FeedAnalyticsDemos2"""
+"0","## api key (example below is not a real key)"
+"0","key <- ""Ju9oAxbTCPwl0RzeIwwZLuhAe"""
+"0","## api secret (example below is not a real key)"
+"0","secret <- ""AYoWvyrpT0nNe3FxZUHrvjgpAOaxGYNdNJ9BaAgdJubCbCk0Fz"""
+"0","## create token named ""twitter_token"""
+"0","twitter_token <- create_token("
+"0","  app = appname,"
+"0","  consumer_key = key,"
+"0","  consumer_secret = secret)"
+"2","Waiting for authentication in browser...
+"
+"2","Press Esc/Ctrl + C to abort
+"
+"2","Authentication complete.
+"

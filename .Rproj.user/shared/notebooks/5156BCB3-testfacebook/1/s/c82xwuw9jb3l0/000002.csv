@@ -1,0 +1,6 @@
+"0","me <- getUsers(""me"",token=fb_oauth, private_info=TRUE)"
+"0","me$name"
+"1","[1]"
+"1"," ""Soko Oldier Loko"""
+"1","
+"

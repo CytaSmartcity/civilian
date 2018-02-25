@@ -1,0 +1,9 @@
+"0","fb_oauth <- fbOAuth(app_id=""1763061813725881"", app_secret=""58b211085c04d947860b32745a11ee36"",extended_permissions = TRUE)"
+"2","Waiting for authentication in browser...
+"
+"2","Press Esc/Ctrl + C to abort
+"
+"2","Authentication complete.
+"
+"2","Authentication successful.
+"

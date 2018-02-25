@@ -1,0 +1,24 @@
+"0","library(Rfacebook)"
+"2","Loading required package: httr
+"
+"2","Loading required package: rjson
+"
+"2","Loading required package: httpuv
+"
+"2","
+Attaching package: ‘Rfacebook’
+
+"
+"2","The following object is masked _by_ ‘.GlobalEnv’:
+
+    fbOAuth
+
+"
+"2","The following object is masked from ‘package:methods’:
+
+    getGroup
+
+"
+"0","library(RCurl)"
+"2","Loading required package: bitops
+"
