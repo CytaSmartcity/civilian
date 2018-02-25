@@ -134,6 +134,7 @@ tm_map(content_transformer(tolower)) %>%
     tally() %>%
     arrange(desc(n), tolower(content)) %>%
 #    # Just show the top 60, otherwise it gets hard to see
+    #this is awasome
     head(60)
 
         
